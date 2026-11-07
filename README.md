@@ -2,7 +2,7 @@
 
 When `turbo run` is started through its npm package (`node_modules/.bin/turbo`, `npx turbo`, or an npm script) and a SIGTERM is sent to its process group (`kill -TERM -<pgid>`, Python's `os.killpg`, and process managers, CI runners and agent harnesses that stop a whole job), turbo prints `Force killed Turborepo tasks: …` and SIGKILLs its tasks within milliseconds, so their cleanup never runs. The same signal sent to the native binary's group, or to the wrapper's PID only, shuts down gracefully, and so does SIGINT to the group. On `2.11.11-canary.2` a group-directed SIGHUP, which is what bash sends its foreground job when the terminal closes, does the same, while `2.11.10` shut down gracefully.
 
-Issue: _link added after filing_
+Issue: https://github.com/vercel/turborepo/issues/14966
 
 ## Reproduction
 
@@ -158,4 +158,4 @@ SIGINT to the group is fine because on Unix the wrapper's SIGINT handler doesn't
 - turbo `2.11.11-canary.2` (latest canary on 2026-11-07); the SIGTERM case also reproduces on `2.11.10` (latest stable) in 3 of 3 runs
 - npm 11.19.1, Node.js 24.22.0
 - macOS 27.2 (arm64), bash 3.2.57 and zsh 5.9 for `terminal-close.py`
-- Linux: the [repro workflow](.github/workflows/repro.yml) runs `npm run repro` on `ubuntu-latest` and `macos-latest`
+- Linux: the [repro workflow](.github/workflows/repro.yml) runs `npm run repro` on `ubuntu-latest` and `macos-latest`; both reproduce the same two failures ([run](https://github.com/ceolinwill/turbo-group-sigterm-force-kill-repro/actions/runs/42391114283))
