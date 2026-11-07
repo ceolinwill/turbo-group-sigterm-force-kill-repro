@@ -1,0 +1,15 @@
+{
+  "name": "turbo-group-sigterm-force-kill-repro",
+  "private": true,
+  "packageManager": "npm@11.19.1",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "repro": "node repro.mjs"
+  },
+  "devDependencies": {
+    "turbo": "2.11.11-canary.2"
+  }
+}

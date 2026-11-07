@@ -1,0 +1,5 @@
+node_modules
+.turbo
+packages/app/ready
+packages/app/cleanup-done
+*.log
